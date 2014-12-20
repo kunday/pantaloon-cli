@@ -1,10 +1,10 @@
-require File.expand_path('../../../../lib/pantaloon/yml/configuration', __FILE__)
+require File.expand_path('../../../../lib/pantaloon/configuration', __FILE__)
 
-describe Pantaloon::Yml::Configuration do
+describe Pantaloon::Configuration do
   let(:config) { File.read("spec/fixtures/pantaloon.yml") }
   let(:subject) { Pantaloon::Configuration.new(config) }
 
   it "should get the right git url" do
-    expect(subject.url).to eq("https://git.realestate.com.au/akunday/cp-domain/")
+    expect(subject.config).to eq(YAML.load(config))
   end
 end
