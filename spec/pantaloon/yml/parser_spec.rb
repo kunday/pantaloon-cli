@@ -1,4 +1,3 @@
 describe Pantaloon::Yml::Parser do
-  it "tests" do
-  end
+  let :config { File.read("spec/fixtures/pantaloon.yml") }
 end

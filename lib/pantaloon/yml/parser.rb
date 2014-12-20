@@ -10,6 +10,7 @@ module Pantaloon
 
       def config_xml
       end
+      
     end
   end
 end
