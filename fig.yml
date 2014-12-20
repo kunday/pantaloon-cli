@@ -1,0 +1,4 @@
+app:
+  image: kunday/pantaloon-yml-parser:latest
+  volumes:
+    - .:/usr/local/app
