@@ -1,9 +1,15 @@
-require "pantaloon/yml/parser/version"
+require 'yaml'
 
 module Pantaloon
   module Yml
     class Parser
-      # Your code goes here...
+      attr_accessor :config
+      def initialize(config)
+        @config = config
+      end
+
+      def config_xml
+      end
     end
   end
 end
