@@ -3,11 +3,46 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
 require 'clamp'
+require 'pantaloon/configuration'
 
 Clamp do
 
   banner %{
-    Creates PSeeker-RO EC2 image in Gandalf account.
+    Utils to generate and update Jenkins project config.
   }
-  
+
+  parameter "[CONFIG]", "pantaloon.yml file", :attribute_name => :config_file
+
+  subcommand "dry-run", "Generate config and dump to command line." do
+
+    parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
+
+    def execute
+      puts "Showing sample config..."
+      config = Pantaloon::Configuration.new(File.read(config_file))
+      puts config.build_step
+    end
+
+  end
+
+  subcommand "apply", "Update configuration in server." do
+
+    parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
+
+    def execute
+      puts "Applying configuration to server..."
+    end
+
+  end
+
+  subcommand "delete", "Generate config for docker-build." do
+
+    parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
+
+    def execute
+      puts "Will remove build from server"
+    end
+
+  end
+
 end
