@@ -14,7 +14,33 @@
       <throttleOption>project</throttleOption>
     </hudson.plugins.throttleconcurrents.ThrottleJobProperty>
   </properties>
-  <scm class="hudson.scm.NullSCM"/>
+  <scm class="org.jenkinsci.plugins.multiplescms.MultiSCM" plugin="multiple-scms@0.3">
+    <scms>
+    <% config["repositories"].each do |name, repo_config|%>
+      <hudson.plugins.git.GitSCM plugin="git@2.3.2">
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <refspec>+refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*</refspec>
+            <url><%= repo_config["url"] %></url>
+            <credentialsId><%= repo_config["credentials_id"] %></credentialsId>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+          <hudson.plugins.git.BranchSpec>
+            <name>${sha1}</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+            <relativeTargetDir><%= repo_config["workdir"] %> </relativeTargetDir>
+          </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        </extensions>
+      </hudson.plugins.git.GitSCM>
+    <% end %>
+    </scms>
+  </scm>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
