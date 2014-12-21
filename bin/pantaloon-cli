@@ -20,7 +20,10 @@ Clamp do
     def execute
       puts "Showing sample config..."
       config = Pantaloon::Configuration.new(File.read(config_file))
-      puts config.build_step
+      # puts "Step Config."
+      # puts config.build_step
+      puts "Project Config."
+      puts config.project_view
     end
 
   end
