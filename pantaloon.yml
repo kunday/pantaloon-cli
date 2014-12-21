@@ -1,0 +1,17 @@
+name: pantaloon-cli
+description: "Build for the pantaloon-cli gem"
+url: https://github.com/kunday/pantaloon-cli
+repositories:
+  cp-domain:
+    url: https://github.com/kunday/pantaloon-cli.git
+    workdir: pantaloon-cli
+    crendentials_id: 1
+steps:
+  - initialise:
+    - dockerise:
+        command: make pull && make
+    - publish:
+        command: make push
+    - test:
+      - specs:
+        command: bundle exec rake spec
