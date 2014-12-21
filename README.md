@@ -30,27 +30,27 @@ Options:
 Config file should look something like this:
 
 ```
-  name: pantaloon-cli
-  description: "Build for the pantaloon-cli gem"
-  url: https://github.com/kunday/pantaloon-cli
-  repositories:
-    cp-domain:
-      url: https://github.com/kunday/pantaloon-cli.git
-      workdir: pantaloon-cli
-      crendentials_id: 1
-    cp-styles:
-      url: https://github.com/kunday/test-repo.git
-      workdir: test-repo
-      crendentials_id: 2
-  steps:
-    - initialise:
-      - dockerise:
-          command: make pull && make
-      - publish:
-          command: make push
-      - test:
-        - specs:
-          command: bundle exec rake spec
+name: pantaloon-cli
+description: "Build for the pantaloon-cli gem"
+url: https://github.com/kunday/pantaloon-cli
+repositories:
+  cp-domain:
+    url: https://github.com/kunday/pantaloon-cli.git
+    workdir: pantaloon-cli
+    crendentials_id: 1
+  cp-styles:
+    url: https://github.com/kunday/test-repo.git
+    workdir: test-repo
+    crendentials_id: 2
+steps:
+  - initialise:
+    - dockerise:
+        command: make pull && make
+    - publish:
+        command: make push
+    - test:
+      - specs:
+        command: bundle exec rake spec
 ```
 
 ## Contributing
