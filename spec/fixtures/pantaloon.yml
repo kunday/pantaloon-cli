@@ -1,13 +1,24 @@
 name: cp-domain
 description: "Build for the cp-domain gem"
 url: https://git.realestate.com.au/akunday/cp-domain/
-repos:
-  - ssh://git@git.realestate.com.au:65422/akunday/cp-domain.git
+repositories:
+  cp-domain:
+    url: ssh://git@git.realestate.com.au:65422/akunday/cp-domain.git
+    workdir: cp-domain
+    crendentials_id: 2
+  cp-styles:
+    url: ssh://git@git.realestate.com.au:65422/listings/cp-styles.git
+    workdir: cp-styles
+    crendentials_id: 3
 steps:
   - initialise:
-      - dockerise: make pull && make
-      - publish: make push
+      - dockerise:
+          command: make pull && make
+      - publish:
+          command: make push
   - test:
-      - specs: bash bundle exec rake archon:baseline db:migrate bamboo:spec
+      - specs:
+          command: bash bundle exec rake archon:baseline db:migrate bamboo:spec
   - check:
-      - schema: bash bundle exec rake archon:migrate_to_baseline db:check-minimum-schema-version
+      - schema:
+          command: bash bundle exec rake archon:migrate_to_baseline db:check-minimum-schema-version
