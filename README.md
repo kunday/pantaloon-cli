@@ -45,11 +45,11 @@ repositories:
 steps:
   - initialise:
     - dockerise:
-        command: make pull && make
+        command: make pull ; make
     - publish:
         command: make push
-    - test:
-      - specs:
+  - test:
+    - specs:
         command: bundle exec rake spec
 ```
 

@@ -1,17 +1,18 @@
 name: pantaloon-cli
+build_server: http://jenkins.cpdev.realestate.com.au/
 description: "Build for the pantaloon-cli gem"
 url: https://github.com/kunday/pantaloon-cli
 repositories:
-  cp-domain:
+  pantaloon-cli:
     url: https://github.com/kunday/pantaloon-cli.git
     workdir: pantaloon-cli
     crendentials_id: 1
 steps:
   - initialise:
     - dockerise:
-        command: make pull && make
+        command: make pull ; make
     - publish:
         command: make push
-    - test:
-      - specs:
+  - test:
+    - specs:
         command: bundle exec rake spec
