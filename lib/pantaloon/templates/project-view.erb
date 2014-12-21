@@ -49,32 +49,15 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <% config["steps"].each do |step| %>
-      <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
         <% step.each do |job_name, tasks| %>
-          <phaseName><%= job_name %></phaseName>
-          <phaseJobs>
             <% tasks.each do |task| %>
               <% task.each do |task_name, command| %>
-                <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-                  <jobName><%= task_name %></jobName>
-                  <currParams>true</currParams>
-                  <exposedSCM>false</exposedSCM>
-                  <disableJob>false</disableJob>
-                  <parsingRulesPath></parsingRulesPath>
-                  <maxRetries>0</maxRetries>
-                  <enableRetryStrategy>false</enableRetryStrategy>
-                  <enableCondition>false</enableCondition>
-                  <abortAllJob>true</abortAllJob>
-                  <condition></condition>
-                  <configs class="empty-list"/>
-                  <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-                  <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-                </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+                <hudson.tasks.Shell>
+                  <command><%= command["command"] %></command>
+                </hudson.tasks.Shell>
               <% end %>
             <% end %>
-          </phaseJobs>
         <% end %>
-      </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
     <% end %>
   </builders>
   <publishers/>

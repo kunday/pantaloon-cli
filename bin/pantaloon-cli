@@ -15,14 +15,8 @@ Clamp do
 
   subcommand "dry-run", "Generate config and dump to command line." do
 
-    parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
-
     def execute
-      puts "Showing sample config..."
       config = Pantaloon::Configuration.new(File.read(config_file))
-      # puts "Step Config."
-      # puts config.build_step
-      puts "Project Config."
       puts config.project_view
     end
 
@@ -31,19 +25,11 @@ Clamp do
   subcommand "apply", "Update configuration in server." do
 
     parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
+    parameter "[JOBNAME]", "job name", :attribute_name => :job_name
 
     def execute
-      puts "Applying configuration to server..."
-    end
-
-  end
-
-  subcommand "delete", "Generate config for docker-build." do
-
-    parameter "[HOST]", "server host", :default => "localhost", :attribute_name => :host
-
-    def execute
-      puts "Will remove build from server"
+      config = Pantaloon::Configuration.new(File.read(config_file))
+      File.write("config.xml", config.project_view)
     end
 
   end
