@@ -6,10 +6,10 @@ Generates job configuration for Jenkins.
 
 Install it from command line like:
 
-    $ gem install pantaloon-yml-parser
+    $ gem install pantaloon-cli
 
 ## Usage
-```
+```shell
 pantaloon-cli [OPTIONS] [CONFIG] SUBCOMMAND [ARG] ...
 
 Utils to generate and update Jenkins project config.
@@ -29,7 +29,7 @@ Options:
 
 Config file should look something like this:
 
-```
+```yaml
 name: pantaloon-cli
 description: "Build for the pantaloon-cli gem"
 url: https://github.com/kunday/pantaloon-cli
