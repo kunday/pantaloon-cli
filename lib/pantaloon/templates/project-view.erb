@@ -22,99 +22,34 @@
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
-      <phaseName>Initialize</phaseName>
-      <phaseJobs>
-        <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>Build</jobName>
-          <currParams>true</currParams>
-          <exposedSCM>false</exposedSCM>
-          <disableJob>false</disableJob>
-          <parsingRulesPath></parsingRulesPath>
-          <maxRetries>0</maxRetries>
-          <enableRetryStrategy>false</enableRetryStrategy>
-          <enableCondition>false</enableCondition>
-          <abortAllJob>true</abortAllJob>
-          <condition></condition>
-          <configs class="empty-list"/>
-          <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-          <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-        </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-        <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>git-archive-agent-admin</jobName>
-          <currParams>true</currParams>
-          <exposedSCM>false</exposedSCM>
-          <disableJob>false</disableJob>
-          <parsingRulesPath></parsingRulesPath>
-          <maxRetries>0</maxRetries>
-          <enableRetryStrategy>false</enableRetryStrategy>
-          <enableCondition>false</enableCondition>
-          <abortAllJob>true</abortAllJob>
-          <condition></condition>
-          <configs class="empty-list"/>
-          <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-          <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-        </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-        <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>git-archive-cp-styles</jobName>
-          <currParams>true</currParams>
-          <exposedSCM>false</exposedSCM>
-          <disableJob>false</disableJob>
-          <parsingRulesPath></parsingRulesPath>
-          <maxRetries>0</maxRetries>
-          <enableRetryStrategy>false</enableRetryStrategy>
-          <enableCondition>false</enableCondition>
-          <abortAllJob>true</abortAllJob>
-          <condition></condition>
-          <configs class="empty-list"/>
-          <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-          <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-        </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-      </phaseJobs>
-      <continuationCondition>SUCCESSFUL</continuationCondition>
-    </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
-    <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
-      <phaseName>Docker Build</phaseName>
-      <phaseJobs>
-        <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>docker-build-agent-admin</jobName>
-          <currParams>true</currParams>
-          <exposedSCM>false</exposedSCM>
-          <disableJob>false</disableJob>
-          <parsingRulesPath></parsingRulesPath>
-          <maxRetries>0</maxRetries>
-          <enableRetryStrategy>false</enableRetryStrategy>
-          <enableCondition>false</enableCondition>
-          <abortAllJob>true</abortAllJob>
-          <condition></condition>
-          <configs class="empty-list"/>
-          <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-          <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-        </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-      </phaseJobs>
-      <continuationCondition>SUCCESSFUL</continuationCondition>
-    </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
-    <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
-      <phaseName>Spec</phaseName>
-      <phaseJobs>
-        <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-          <jobName>spec-agent-admin</jobName>
-          <currParams>true</currParams>
-          <exposedSCM>false</exposedSCM>
-          <disableJob>false</disableJob>
-          <parsingRulesPath></parsingRulesPath>
-          <maxRetries>0</maxRetries>
-          <enableRetryStrategy>false</enableRetryStrategy>
-          <enableCondition>false</enableCondition>
-          <abortAllJob>true</abortAllJob>
-          <condition></condition>
-          <configs class="empty-list"/>
-          <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
-          <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
-        </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
-      </phaseJobs>
-      <continuationCondition>ALWAYS</continuationCondition>
-    </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
+    <% config["steps"].each do |step| %>
+      <com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
+        <% step.each do |job_name, tasks| %>
+          <phaseName><%= job_name %></phaseName>
+          <phaseJobs>
+            <% tasks.each do |task| %>
+              <% task.each do |task_name, command| %>
+                <com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+                  <jobName><%= task_name %></jobName>
+                  <currParams>true</currParams>
+                  <exposedSCM>false</exposedSCM>
+                  <disableJob>false</disableJob>
+                  <parsingRulesPath></parsingRulesPath>
+                  <maxRetries>0</maxRetries>
+                  <enableRetryStrategy>false</enableRetryStrategy>
+                  <enableCondition>false</enableCondition>
+                  <abortAllJob>true</abortAllJob>
+                  <condition></condition>
+                  <configs class="empty-list"/>
+                  <killPhaseOnJobResultCondition>FAILURE</killPhaseOnJobResultCondition>
+                  <buildOnlyIfSCMChanges>false</buildOnlyIfSCMChanges>
+                </com.tikal.jenkins.plugins.multijob.PhaseJobsConfig>
+              <% end %>
+            <% end %>
+          </phaseJobs>
+        <% end %>
+      </com.tikal.jenkins.plugins.multijob.MultiJobBuilder>
+    <% end %>
   </builders>
   <publishers/>
   <buildWrappers/>
