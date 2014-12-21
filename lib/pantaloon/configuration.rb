@@ -1,4 +1,3 @@
-require 'dish/ext'
 require 'yaml'
 require 'erb'
 
