@@ -3,7 +3,8 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
 require 'clamp'
-require 'pantaloon/configuration'
+require 'pantaloon/configure'
+require 'pantaloon/apply'
 
 Clamp do
 
